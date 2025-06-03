@@ -18,7 +18,7 @@
     "name": "High in the City of Love",
     "duration": 1,
     "maxGroupSize": 20,
-    "difficulty": "9",
+    "difficulty": "medium",
     "guides": ["5c8a22c62f8fb814b56fa18b", "5c8a201e2f8fb814b56fa186"],
     "price": 40,
     "summary": "Paris Shit",
