@@ -53,9 +53,8 @@ block content
 
               - if (guide.role === 'lead-guide')
                 span.overview-box__label Lead guide
-              - if (guide.role === 'guide')
-                span.overview-box__label Tour guide
               span.overview-box__text= guide.name
+
 
     .description-box
       h2.heading-secondary.ma-bt-lg= `About ${tour.name} tour`
@@ -66,15 +65,15 @@ block content
   section.section-pictures
     each img, i in tour.images
       .picture-box
-        img.picture-box__img(src=`/img/tours/${img}`, alt=`The Park Camper Tour ${i + 1}`, class=`picture-box__img--${i + 1}`)
+        img.picture-box__img(src=`/img/tours/${img}`, alt=`${i + 1}`, class=`picture-box__img--${i + 1}`)
 
-  section.section-map
-    #map(data-locations=`${JSON.stringify(tour.locations)}`)
+  //- section.section-map
+  //-   #map(data-locations=`${JSON.stringify(tour.locations)}`)
 
-  section.section-reviews
-    .reviews
-      each review in tour.reviews
-        +reviewCard(review)
+  //- section.section-reviews
+  //-   .reviews
+  //-     each review in tour.reviews
+  //-       +reviewCard(review)
 
   section.section-cta
     .cta
@@ -84,8 +83,43 @@ block content
       img.cta__img.cta__img--2(src=`/img/tours/${tour.images[2]}`, alt='Tour picture')
       .cta__content
         h2.heading-secondary What are you waiting for?
-        p.cta__text= `${tour.duration} days. 1 adventure. Infinite memories. Make it yours today!`
+        p.cta__text= `Chillest tour with coolest vibes in Paris. Book Today!`
         if user
           button.btn.btn--green.span-all-rows#book-tour(data-tour-id=`${tour.id}`) Book tour now!
         else
           a.btn.btn--green.span-all-rows(href='/login') Log in to book tour
+
+    br
+    br  
+    br
+    br
+
+    .about-section
+      h2.heading-secondary Contact Us
+      p.contact-text Have questions about our tours? Get in touch!
+      .contact-details
+        .contact-item
+          svg.contact-icon
+            use(xlink:href='/img/icons.svg#icon-mail')
+          span.contact-label Email:
+          a.contact-link(href='mailto:parisTHCtours@gmail.com') parisTHCtours@gmail.com
+    
+        br
+        br
+
+      h2.heading-secondary FAQ
+      .faq-item
+        h3.faq-question Is cannabis legal in Paris?
+        p.faq-answer While recreational cannabis is not legal in France, our tours focus on legal CBD products and cannabis culture education. We ensure all activities comply with local laws.
+
+      .faq-item
+        h3.faq-question What should I bring?
+        p.faq-answer Comfortable walking shoes, a valid ID, and an open mind! Our tours involve walking through historic neighborhoods. We'll take care of everything else.
+
+      .faq-item
+        h3.faq-question Are the tours in English?
+        p.faq-answer Yes! All our tours are conducted in English by fluent guides. 
+
+      .faq-item
+        h3.faq-question What's your cancellation policy?
+        p.faq-answer Full refunds available for cancellations made 48 hours in advance. Contact us for more details about our flexible booking policy.

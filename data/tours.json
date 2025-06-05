@@ -6,23 +6,21 @@
       "coordinates": [48.8674, 2.3636],
       "address": "Place de la République, 75011 Paris, France"
     },
-    "ratingsAverage": 4.6,
+    "ratingsAverage": 5,
     "ratingsQuantity": 5,
     "images": ["tour-4-1.jpg", "tour-4-2.jpg", "tour-4-3.jpg"],
     "startDates": [
-      "2021-03-11T10:00:00.000Z",
-      "2021-05-02T09:00:00.000Z",
-      "2021-06-09T09:00:00.000Z"
+      "2025-06-08T10:00:00.000Z"
     ],
     "_id": "5c88fa8cf4afda39709c295d",
     "name": "High in the City of Love",
-    "duration": 1,
-    "maxGroupSize": 20,
+    "duration": 3,
+    "maxGroupSize": 10,
     "difficulty": "medium",
     "guides": ["5c8a22c62f8fb814b56fa18b", "5c8a201e2f8fb814b56fa186"],
-    "price": 40,
-    "summary": "Paris Shit",
-    "description": "More Paris Shit",
+    "price": 30,
+    "summary": "Our premier walking tour of Paris's 420-friendly scene",
+    "description": "Welcome to Paris THC Tours—where history, art, and a cannabis-friendly spirit come together for an unforgettable 3-hour journey through the heart of Paris. Our motto is simple: explore the city, enjoy responsibly, and learn from local experts. We're passionate about Paris's cafés, cafés-crèmes, and cobblestone streets—plus the unique subculture that embraces cannabis tourism in a safe, discreet, and entirely legal way.\nOur founders, Lee and Charlie, are seasoned Paris residents who share a deep love for both the city's renowned landmarks and its emerging 420-friendly scene. We do not sell cannabis directly; instead, we offer carefully curated stop-offs at trusted local boutiques, private lounges, or CBD shops, along with expert guidance on how to stay within France's legal guidelines.",
     "imageCover": "tour-4-cover.jpg",
     "locations": [
       {
@@ -31,20 +29,6 @@
         "type": "Point",
         "coordinates": [48.8674, 2.3636],
         "day": 1
-      },
-      {
-        "_id": "5c88fa8cf4afda39709c295f",
-        "description": "Canal Saint-Martin",
-        "type": "Point",
-        "coordinates": [48.8712, 2.3631],
-        "day": 3
-      },
-      {
-        "_id": "5c88fa8cf4afda39709c295e",
-        "description": "Le Marais",
-        "type": "Point",
-        "coordinates": [48.8584, 2.3622],
-        "day": 5
       }
     ]
   }
