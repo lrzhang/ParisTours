@@ -1,0 +1,3 @@
+This code base is using PUG and I want to change it all to React Typescript. I also want to make it simpler as I only want three pages.
+
+There should be no login/users. Instead there is a tour booking page with the info. There should be a date picker/calendar for booking the one tour a day. This links to a payment page. Finally a landing page.

@@ -7,22 +7,14 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cors = require('cors');
-const cookieParser = require('cookie-parser');
 const compression = require('compression');
 
 const tourRouter = require('./routes/tourRoutes');
-const userRouter = require('./routes/userRoutes');
-const reviewRouter = require('./routes/reviewRoutes');
-const viewRouter = require('./routes/viewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 
 const app = express();
-
-// Template engine
-app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, 'views'));
 
 // ------------------------------Middlewares------------------------------ //
 // Serving static files
@@ -44,8 +36,11 @@ app.use(
   })
 );
 
-// Implement CORS
-app.use(cors());
+// Implement CORS - Enhanced for React frontend
+app.use(cors({
+  origin: ['http://localhost:3000', 'http://localhost:5173', 'http://127.0.0.1:3000', 'http://127.0.0.1:5173'],
+  credentials: true,
+}));
 app.options('*', cors()); // Access-Control-Allow-Origin * for all HTTP methods (GET, POST, etc.)
 
 // Development logging
@@ -64,7 +59,6 @@ app.use('/api', limiter); // Only limit access to the "/api" route
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' })); // to have access to "body" of req
 app.use(express.urlencoded({ extended: true, limit: '10kb' })); // parse data coming from url-encoded HTML Form
-app.use(cookieParser()); // parse data from cookies
 
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
@@ -99,18 +93,24 @@ app.use((req, res, next) => {
 app.use(compression());
 
 // ------------------------------------Routes------------------------------------ //
-app.use('/', viewRouter);
-
-// "v1" for API version, which is useful if there's a new version in the future
+// API routes only (removed view routes)
 app.use('/api/v1/tours', tourRouter);
-app.use('/api/v1/users', userRouter);
-app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/bookings', bookingRouter);
+
+// Serve React app in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'frontend/dist')));
+  
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'frontend/dist/index.html'));
+  });
+}
 
 // Unhandled Routes
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
+
 // Global Error Handling Middleware
 app.use(globalErrorHandler);
 

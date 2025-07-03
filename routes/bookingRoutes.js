@@ -1,14 +1,17 @@
 const express = require('express');
 const bookingController = require('./../controllers/bookingController');
-const authController = require('./../controllers/authController');
 
 const router = express.Router();
 
-router.use(authController.protect);
+// Public routes for guest bookings (no authentication required)
+router.get('/availability/:tourId', bookingController.getAvailability);
+router.get('/time-slots/:tourId/:date', bookingController.getTimeSlots);
+router.post('/reserve', bookingController.reserveBooking);
+router.post('/checkout-session', bookingController.getCheckoutSession);
+router.post('/confirm', bookingController.confirmBooking);
+router.get('/verify/:sessionId', bookingController.verifyPayment);
 
-router.get('/checkout-session/:tourId', bookingController.getCheckoutSession);
-
-router.use(authController.restrictTo('admin', 'lead-guide')); // Only admins and lead-guides can access the following routes
+// Admin routes (simplified, no authentication for now)
 router
   .route('/')
   .get(bookingController.getAllBookings)

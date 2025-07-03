@@ -102,13 +102,22 @@ const tourSchema = new mongoose.Schema(
         day: Number,
       },
     ],
-    guides: [
-      // Child-referencing user-document with tour-document
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: 'User', // reference to User model
+    // Add time slot functionality
+    timeSlots: [{
+      time: {
+        type: String, // e.g., "09:00", "14:00", "19:00"
+        required: true
       },
-    ],
+      maxCapacity: {
+        type: Number,
+        default: function() { return this.maxGroupSize; }
+      }
+    }],
+    // Default to one slot per day initially
+    defaultTimeSlots: {
+      type: [String],
+      default: ["10:00"] // Start with single morning slot
+    },
   },
   {
     toJSON: { virtuals: true }, // add the virtual properties when we convert to JSON
@@ -125,30 +134,16 @@ tourSchema.index({ startLocation: '2dsphere' }); // startLocation should be inde
 tourSchema.virtual('durationWeeks').get(function () {
   return this.duration / 7;
 });
-// virtual populate
-tourSchema.virtual('reviews', {
-  ref: 'Review',
-  foreignField: 'tour',
-  localField: '_id',
-});
 
 // Document Middleware: runs before .save() commands
 tourSchema.pre('save', function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
+
 // Query Middlewares for all query commands that start with "find"
 tourSchema.pre(/^find/, function (next) {
   this.find({ secretTour: { $ne: true } }); // exclude secretTour field from query result
-  next();
-});
-tourSchema.pre(/^find/, function (next) {
-  // populating Tour "Guides" field
-  this.populate({
-    path: 'guides',
-    select: '-__v -passwordChangedAt',
-  });
-
   next();
 });
 

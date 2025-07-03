@@ -6,32 +6,48 @@ const bookingSchema = new mongoose.Schema({
     ref: 'Tour',
     required: [true, 'Booking must belong to a Tour!'],
   },
-  user: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'User',
-    required: [true, 'Booking must belong to a User!'],
+  guestName: {
+    type: String,
+    required: [true, 'Booking must have a guest name'],
   },
-  price: {
-    type: Number,
-    require: [true, 'Booking must have a price.'],
+  guestEmail: {
+    type: String,
+    required: [true, 'Booking must have a guest email'],
   },
-  createdAt: {
-    type: Date,
-    default: Date.now(),
-  },
-  paid: {
-    type: Boolean,
-    default: true,
+  guestPhone: {
+    type: String,
+    required: [true, 'Booking must have a guest phone number'],
   },
   date: {
     type: Date,
     required: [true, 'Booking must have a date'],
   },
+  timeSlot: {
+    type: String,
+    required: [true, 'Booking must have a time slot'],
+  },
+  guests: {
+    type: Number,
+    required: [true, 'Booking must have number of guests'],
+    min: 1,
+  },
+  price: {
+    type: Number,
+    required: [true, 'Booking must have a price'],
+  },
+  paid: {
+    type: Boolean,
+    default: false,
+  },
+  stripeSessionId: String,
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-// Populate the user and tour fields
 bookingSchema.pre(/^find/, function (next) {
-  this.populate('user').populate({
+  this.populate({
     path: 'tour',
     select: 'name',
   });

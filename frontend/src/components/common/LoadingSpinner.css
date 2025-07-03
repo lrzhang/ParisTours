@@ -1,0 +1,92 @@
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 200px;
+}
+
+.spinner {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #55c57a;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  position: relative;
+}
+
+.spinner--small {
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
+}
+
+.spinner--medium {
+  width: 40px;
+  height: 40px;
+  border-width: 3px;
+}
+
+.spinner--large {
+  width: 60px;
+  height: 60px;
+  border-width: 4px;
+}
+
+.spinner-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 60%;
+  border: 1px solid rgba(85, 197, 122, 0.3);
+  border-radius: 50%;
+  animation: spin 1.5s linear infinite reverse;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-message {
+  margin-top: 1rem;
+  color: #666;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Overlay spinner for full-screen loading */
+.loading-container.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 9999;
+  min-height: 100vh;
+}
+
+/* Inline spinner variants */
+.spinner.spinner-inline {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+.spinner.spinner-inline.spinner--small {
+  width: 16px;
+  height: 16px;
+}
+
+.spinner.spinner-inline.spinner--medium {
+  width: 24px;
+  height: 24px;
+}
+
+.spinner.spinner-inline.spinner--large {
+  width: 32px;
+  height: 32px;
+} 

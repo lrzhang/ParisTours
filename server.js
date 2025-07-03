@@ -14,10 +14,12 @@ process.on('uncaughtException', (err) => {
 dotenv.config({ path: './config.env' }); // MUST BE BEFORE requiring app file
 
 const app = require('./app');
-const DB = process.env.DATABASE.replace(
-  '<PASSWORD>',
-  process.env.DATABASE_PASSWORD
-);
+
+// Handle both local MongoDB and MongoDB Atlas connections
+let DB = process.env.DATABASE;
+if (process.env.DATABASE_PASSWORD) {
+  DB = DB.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
+}
 
 mongoose
   .connect(DB)
