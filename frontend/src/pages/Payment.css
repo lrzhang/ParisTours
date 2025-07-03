@@ -1,0 +1,233 @@
+/* Payment Page Styles */
+.payment-page {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  padding: 3rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Payment Success */
+.payment-success {
+  background: white;
+  border-radius: 12px;
+  padding: 3rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+}
+
+.payment-success__icon {
+  margin-bottom: 2rem;
+}
+
+.success-checkmark {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  background: #55c57a;
+  border-radius: 50%;
+  color: white;
+  font-size: 3rem;
+  line-height: 80px;
+  font-weight: bold;
+}
+
+.payment-success__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.payment-success__message {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+/* Payment Cancel */
+.payment-cancel {
+  background: white;
+  border-radius: 12px;
+  padding: 3rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+}
+
+.payment-cancel__icon {
+  margin-bottom: 2rem;
+}
+
+.cancel-x {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  background: #e74c3c;
+  border-radius: 50%;
+  color: white;
+  font-size: 3rem;
+  line-height: 80px;
+  font-weight: bold;
+}
+
+.payment-cancel__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.payment-cancel__message {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.payment-cancel__actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Booking Summary */
+.booking-summary {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 2rem;
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.booking-summary__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.booking-summary__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.booking-summary__item {
+  padding: 0.75rem;
+  background: white;
+  border-radius: 6px;
+  border-left: 4px solid #55c57a;
+  font-size: 0.9rem;
+}
+
+.booking-summary__item strong {
+  color: #333;
+  margin-right: 0.5rem;
+}
+
+/* Payment Actions */
+.payment-success__actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Payment Status */
+.payment-status {
+  background: white;
+  border-radius: 12px;
+  padding: 3rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+}
+
+/* Payment Form (for future embedded checkout) */
+.payment-form {
+  background: white;
+  border-radius: 12px;
+  padding: 3rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+}
+
+.payment-form h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.payment-form p {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .payment-page {
+    padding: 2rem 0;
+  }
+  
+  .payment-success,
+  .payment-cancel,
+  .payment-status,
+  .payment-form {
+    padding: 2rem;
+    margin: 0 1rem;
+  }
+  
+  .payment-success__title,
+  .payment-cancel__title {
+    font-size: 2rem;
+  }
+  
+  .success-checkmark,
+  .cancel-x {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+    line-height: 60px;
+  }
+  
+  .booking-summary__content {
+    grid-template-columns: 1fr;
+  }
+  
+  .payment-success__actions,
+  .payment-cancel__actions {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-success,
+  .payment-cancel,
+  .payment-status,
+  .payment-form {
+    padding: 1.5rem;
+  }
+  
+  .payment-success__title,
+  .payment-cancel__title {
+    font-size: 1.5rem;
+  }
+  
+  .booking-summary {
+    padding: 1.5rem;
+  }
+} 

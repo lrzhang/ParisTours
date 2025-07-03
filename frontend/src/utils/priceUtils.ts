@@ -19,17 +19,16 @@ export const calculateDiscount = (price: number, discountPercentage: number): nu
   return (price * discountPercentage) / 100;
 };
 
-export const formatPriceBreakdown = (basePrice: number, guests: number, discount?: number) => {
+/**
+ * Format price breakdown for booking display
+ */
+export const formatPriceBreakdown = (basePrice: number, guests: number) => {
   const subtotal = basePrice * guests;
-  const finalPrice = discount ? subtotal - discount : subtotal;
   
   return {
     basePrice: formatPrice(basePrice),
-    guests,
     subtotal: formatPrice(subtotal),
-    discount: discount ? formatPrice(discount) : null,
-    total: formatPrice(finalPrice),
-    rawTotal: finalPrice,
+    total: formatPrice(subtotal)
   };
 };
 

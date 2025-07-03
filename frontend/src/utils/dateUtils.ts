@@ -5,15 +5,21 @@ export const formatDate = (date: Date | string): string => {
   return dateObj.toISOString().split('T')[0];
 };
 
-export const formatDisplayDate = (date: Date | string): string => {
-  const dateObj = typeof date === 'string' ? new Date(date) : date;
-  return dateObj.toLocaleDateString('en-US', {
+/**
+ * Format a date for display (e.g., "Monday, January 15, 2024")
+ */
+export const formatDisplayDate = (date: Date): string => {
+  return date.toLocaleDateString('en-US', {
+    weekday: 'long',
     year: 'numeric',
-    month: 'short',
-    day: 'numeric',
+    month: 'long',
+    day: 'numeric'
   });
 };
 
+/**
+ * Format time for display (e.g., "09:00 AM")
+ */
 export const formatTime = (time: string): string => {
   const [hours, minutes] = time.split(':');
   const hour = parseInt(hours);
@@ -22,26 +28,33 @@ export const formatTime = (time: string): string => {
   return `${displayHour}:${minutes} ${ampm}`;
 };
 
-export const isDateAvailable = (date: Date): boolean => {
-  const today = new Date();
-  const minDate = new Date(today);
-  minDate.setDate(today.getDate() + BOOKING_ADVANCE_DAYS);
-  
-  return date >= minDate;
-};
-
+/**
+ * Get minimum booking date (tomorrow)
+ */
 export const getMinBookingDate = (): Date => {
-  const today = new Date();
-  const minDate = new Date(today);
-  minDate.setDate(today.getDate() + BOOKING_ADVANCE_DAYS);
-  return minDate;
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  return tomorrow;
 };
 
+/**
+ * Get maximum booking date (6 months from now)
+ */
 export const getMaxBookingDate = (): Date => {
-  const today = new Date();
-  const maxDate = new Date(today);
-  maxDate.setDate(today.getDate() + 365); // Allow bookings up to 1 year in advance
+  const maxDate = new Date();
+  maxDate.setMonth(maxDate.getMonth() + 6);
   return maxDate;
+};
+
+/**
+ * Check if a date is available for booking
+ */
+export const isDateAvailable = (date: Date): boolean => {
+  const dayOfWeek = date.getDay();
+  // Disable Sundays (0) and past dates
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return dayOfWeek !== 0 && date >= today;
 };
 
 export const parseDate = (dateString: string): Date => {

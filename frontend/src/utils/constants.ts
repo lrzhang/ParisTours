@@ -2,7 +2,10 @@
 export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
 
 // Stripe Configuration
-export const STRIPE_PUBLISHABLE_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || '';
+export const STRIPE_PUBLISHABLE_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || (() => {
+  console.error('VITE_STRIPE_PUBLISHABLE_KEY is not set in environment variables');
+  return '';
+})();
 
 // Date Configuration
 export const DATE_FORMAT = 'YYYY-MM-DD';
