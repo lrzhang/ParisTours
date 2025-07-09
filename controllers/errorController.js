@@ -27,63 +27,31 @@ const handleJWTExpiredError = () => {
 
 // ----------------Sending Error Response---------------- //
 const sendErrorDev = (err, req, res) => {
-  // A) From API
-  if (req.originalUrl.startsWith('/api')) {
-    // send error as json
-    return res.status(err.statusCode).json({
-      status: err.status,
-      error: err,
-      message: err.message,
-      stack: err.stack,
-    });
-  }
-
-  // B) From Rendered Website
+  // Always send error as JSON for API
   console.error('ERROR 💥', err);
-  // render 'error' pug template
-  return res.status(err.statusCode).render('error', {
-    title: 'Something went wrong!',
-    msg: err.message,
+  return res.status(err.statusCode).json({
+    status: err.status,
+    error: err,
+    message: err.message,
+    stack: err.stack,
   });
 };
 
 const sendErrorProd = (err, req, res) => {
-  // A) API
-  if (req.originalUrl.startsWith('/api')) {
-    // A) Operational Error, trusted error(from the custom AppError): send message to client
-    if (err.isOperational) {
-      return res.status(err.statusCode).json({
-        status: err.status,
-        message: err.message,
-      });
-    }
-    // B) Programming or other unknown error: don't leak error details
-    // 1) Log error
-    console.error('ERROR 💥', err);
-    // 2) Send generic message
-    return res.status(500).json({
-      status: 'error',
-      message: 'Something went very wrong!',
-    });
-  }
-
-  // B) RENDERED WEBSITE
   // A) Operational Error, trusted error(from the custom AppError): send message to client
   if (err.isOperational) {
-    // render 'error' pug template
-    return res.status(err.statusCode).render('error', {
-      title: 'Something went wrong!',
-      msg: err.message,
+    return res.status(err.statusCode).json({
+      status: err.status,
+      message: err.message,
     });
   }
   // B) Programming or other unknown error: don't leak error details
   // 1) Log error
   console.error('ERROR 💥', err);
   // 2) Send generic message
-  // render 'error' pug template
-  return res.status(err.statusCode).render('error', {
-    title: 'Something went wrong!',
-    msg: 'Please try again later.',
+  return res.status(500).json({
+    status: 'error',
+    message: 'Something went very wrong!',
   });
 };
 
