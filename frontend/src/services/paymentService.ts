@@ -1,5 +1,5 @@
 import { apiClient } from './api';
-import { stripePromise, getSuccessUrl, getCancelUrl } from '../utils/stripe';
+import { stripePromise } from '../utils/stripe';
 import type { BookingFormData } from '../types/booking';
 import type { PaymentIntent, CheckoutSession } from '../types/payment';
 
@@ -63,19 +63,5 @@ export const paymentService = {
       return response.data;
     }
     throw new Error('Failed to get payment status');
-  },
-
-  // Handle successful payment
-  handlePaymentSuccess: async (sessionId: string, bookingId?: string): Promise<any> => {
-    const params = new URLSearchParams();
-    if (sessionId) params.append('session_id', sessionId);
-    if (bookingId) params.append('booking_id', bookingId);
-
-    const response = await apiClient.get<{ booking: any }>(`/bookings/payment-success?${params.toString()}`);
-    
-    if (response.status === 'success' && response.data) {
-      return response.data.booking;
-    }
-    throw new Error('Failed to handle payment success');
   },
 }; 

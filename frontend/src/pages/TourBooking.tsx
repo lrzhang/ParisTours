@@ -33,8 +33,6 @@ const TourBooking: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
-    watch
   } = useForm<BookingFormData>();
 
   // Fetch tour data on component mount

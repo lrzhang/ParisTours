@@ -9,7 +9,8 @@ router.get('/time-slots/:tourId/:date', bookingController.getTimeSlots);
 router.post('/reserve', bookingController.reserveBooking);
 router.post('/checkout-session', bookingController.getCheckoutSession);
 router.post('/confirm', bookingController.confirmBooking);
-router.get('/verify/:sessionId', bookingController.verifyPayment);
+router.get('/verify', bookingController.verifyPayment);
+router.post('/webhook', express.raw({ type: 'application/json' }), bookingController.webhookCheckout);
 
 // Admin routes (simplified, no authentication for now)
 router

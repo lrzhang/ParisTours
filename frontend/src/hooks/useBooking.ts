@@ -1,18 +1,17 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useApi } from './useApi';
 import { bookingService } from '../services/bookingService';
 import { paymentService } from '../services/paymentService';
 import type { Booking, BookingFormData, BookingReservation } from '../types/booking';
-import type { StripeSession, PaymentResult } from '../types/payment';
 
-// Hook for reserving a booking
-export const useReserveBooking = () => {
+// Hook for creating a booking
+export const useCreateBooking = () => {
   return useApi<BookingReservation>(bookingService.reserveBooking);
 };
 
 // Hook for getting booking by ID
-export const useGetBooking = () => {
-  return useApi<Booking>(bookingService.getBookingById);
+export const useGetBooking = (id: string) => {
+  return useApi<Booking>(() => bookingService.getBookingById(id));
 };
 
 // Hook for verifying payment
@@ -25,79 +24,58 @@ export const useConfirmBooking = () => {
   return useApi<Booking>(bookingService.confirmBooking);
 };
 
-// Hook for creating checkout session
-export const useCreateCheckoutSession = () => {
-  return useApi<StripeSession>((bookingId: string) => paymentService.createCheckoutSession(bookingId));
-};
-
-// Combined hook for the complete booking flow
+// Hook for handling full booking flow
 export const useBookingFlow = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [booking, setBooking] = useState<Booking | null>(null);
 
-  const startBookingFlow = async (bookingData: BookingFormData): Promise<void> => {
+  const startBookingFlow = useCallback(async (bookingData: BookingFormData) => {
     setLoading(true);
     setError(null);
     
     try {
-      // Step 1: Reserve the booking
+      // Step 1: Reserve booking
       const reservation = await bookingService.reserveBooking(bookingData);
-      setBooking(reservation.booking);
       
-      // Step 2: Create Stripe checkout session
-      const session = await paymentService.createCheckoutSession(reservation.booking._id);
+      // Step 2: Create checkout session
+      const session = await paymentService.createCheckoutSession(reservation.bookingId);
       
-      // Step 3: Redirect to Stripe checkout
+      // Step 3: Redirect to Stripe
       await paymentService.redirectToCheckout(session.id);
+      
+      return reservation;
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'An error occurred during booking';
+      const errorMessage = err instanceof Error ? err.message : 'Failed to start booking flow';
       setError(errorMessage);
       throw err;
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const confirmPayment = async (paymentIntentId: string): Promise<PaymentResult> => {
+  const confirmPayment = useCallback(async (paymentIntentId: string) => {
     setLoading(true);
     setError(null);
     
     try {
       const result = await paymentService.confirmPayment(paymentIntentId);
-      
       if (result.success && result.booking) {
         setBooking(result.booking);
+        return result.booking;
+      } else {
+        throw new Error('Payment confirmation failed');
       }
-      
-      return result;
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Payment confirmation failed';
+      const errorMessage = err instanceof Error ? err.message : 'Failed to confirm payment';
       setError(errorMessage);
       throw err;
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const handlePaymentSuccess = async (sessionId: string, bookingId?: string): Promise<Booking | null> => {
-    setLoading(true);
-    setError(null);
-    
-    try {
-      const booking = await paymentService.handlePaymentSuccess(sessionId, bookingId);
-      setBooking(booking);
-      return booking;
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to process payment success';
-      setError(errorMessage);
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const verifyPayment = async (sessionId: string): Promise<Booking> => {
+  const verifyPayment = useCallback(async (sessionId: string): Promise<Booking> => {
     setLoading(true);
     setError(null);
     
@@ -112,9 +90,9 @@ export const useBookingFlow = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const confirmBooking = async (sessionId: string): Promise<Booking> => {
+  const confirmBooking = useCallback(async (sessionId: string): Promise<Booking> => {
     setLoading(true);
     setError(null);
     
@@ -129,12 +107,12 @@ export const useBookingFlow = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const resetBooking = () => {
+  const resetBooking = useCallback(() => {
     setBooking(null);
     setError(null);
-  };
+  }, []);
 
   return {
     loading,
@@ -142,7 +120,6 @@ export const useBookingFlow = () => {
     booking,
     startBookingFlow,
     confirmPayment,
-    handlePaymentSuccess,
     verifyPayment,
     confirmBooking,
     resetBooking,

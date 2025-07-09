@@ -25,7 +25,7 @@ export const bookingService = {
 
   // Verify payment status
   verifyPayment: async (sessionId: string): Promise<Booking> => {
-    const response = await apiClient.get<{ booking: Booking }>(`/bookings/verify/${sessionId}`);
+    const response = await apiClient.get<{ booking: Booking  }>(`/bookings/verify?session_id=${sessionId}`);
     if (response.status === 'success' && response.data) {
       return response.data.booking;
     }
@@ -34,9 +34,9 @@ export const bookingService = {
 
   // Confirm booking after payment
   confirmBooking: async (sessionId: string): Promise<Booking> => {
-    const response = await apiClient.post<{ booking: Booking }>('/bookings/confirm', { sessionId });
+    const response = await apiClient.post<{ data: { booking: Booking } }>('/bookings/confirm', { sessionId });
     if (response.status === 'success' && response.data) {
-      return response.data.booking;
+      return response.data.data.booking;
     }
     throw new Error('Failed to confirm booking');
   },

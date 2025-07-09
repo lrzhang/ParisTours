@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Elements } from '@stripe/react-stripe-js';
-import { stripePromise } from '../utils/stripe';
+import React, { useEffect, useState, useCallback } from 'react';
+import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import { useBookingFlow } from '../hooks/useBooking';
 import { ROUTES } from '../utils/constants';
 import { formatPrice } from '../utils/priceUtils';
@@ -14,45 +12,42 @@ import './Payment.css';
 const PaymentSuccess: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { handlePaymentSuccess, verifyPayment, loading, error } = useBookingFlow();
+  const { verifyPayment, loading, error } = useBookingFlow();
   const [booking, setBooking] = useState<Booking | null>(null);
+  const [processed, setProcessed] = useState(false);
+
+  const processPayment = useCallback(async (sessionId: string) => {
+    if (processed) return; // Prevent multiple calls
+    
+    setProcessed(true);
+    try {
+      const booking = await verifyPayment(sessionId);
+      setBooking(booking);
+    } catch (err) {
+      console.error('Payment processing error:', err);
+      setProcessed(false); // Allow retry on error
+    }
+  }, []);
 
   useEffect(() => {
     const sessionId = searchParams.get('session_id');
-    const bookingId = searchParams.get('booking_id');
 
-    if (sessionId) {
-      const processPayment = async () => {
-        try {
-          // First try to handle payment success
-          if (bookingId) {
-            const booking = await handlePaymentSuccess(sessionId, bookingId);
-            setBooking(booking);
-          } else {
-            // Fallback to verify payment
-            const booking = await verifyPayment(sessionId);
-            setBooking(booking);
-          }
-        } catch (err) {
-          console.error('Payment processing error:', err);
-        }
-      };
-
-      processPayment();
+    if (sessionId && !processed && !booking) {
+      processPayment(sessionId);
     }
-  }, [searchParams, handlePaymentSuccess, verifyPayment]);
+  }, [searchParams, processPayment, processed, booking]);
 
-  if (loading) {
-    return (
-      <div className="payment-page">
-        <div className="container">
-          <div className="payment-status">
-            <LoadingSpinner message="Processing your payment..." />
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="payment-page">
+  //       <div className="container">
+  //         <div className="payment-status">
+  //           <LoadingSpinner message="Processing your payment..." />
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   if (error) {
     return (
@@ -185,15 +180,15 @@ const PaymentCancel: React.FC = () => {
 };
 
 const Payment: React.FC = () => {
-  const [searchParams] = useSearchParams();
-  const success = searchParams.get('success') === 'true';
-  const cancelled = searchParams.get('cancelled') === 'true';
+  const location = useLocation();
+  const pathname = location.pathname;
 
-  if (success) {
+  // Check the URL path instead of query parameters
+  if (pathname === '/payment/success') {
     return <PaymentSuccess />;
   }
 
-  if (cancelled) {
+  if (pathname === '/payment/cancel') {
     return <PaymentCancel />;
   }
 
@@ -203,7 +198,7 @@ const Payment: React.FC = () => {
       <div className="container">
         <div className="payment-form">
           <h1>Complete Your Payment</h1>
-          <p>Payment processing...</p>
+          <p>AWEFAWEFAWEF..</p>
         </div>
       </div>
     </div>
