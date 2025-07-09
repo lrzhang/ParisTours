@@ -53,7 +53,11 @@
   font-weight: 700;
   margin-bottom: 1rem;
   line-height: 1.2;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  display: inline-block;
 }
 
 .hero__subtitle {
@@ -61,7 +65,11 @@
   margin-bottom: 2rem;
   max-width: 600px;
   line-height: 1.6;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  display: inline-block;
 }
 
 .hero__features {
@@ -69,6 +77,9 @@
   gap: 2rem;
   margin-bottom: 3rem;
   flex-wrap: wrap;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
 }
 
 .hero__feature {
@@ -77,6 +88,7 @@
   gap: 0.5rem;
   font-size: 1.1rem;
   font-weight: 500;
+  
 }
 
 .hero__feature-icon {
@@ -94,6 +106,10 @@
   font-size: 1.1rem;
   font-weight: 500;
   opacity: 0.9;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  display: inline-block;
 }
 
 /* Tour Overview Section */

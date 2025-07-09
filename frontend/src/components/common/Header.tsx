@@ -10,7 +10,7 @@ const Header: React.FC = () => {
     <header className="header">
       <div className="nav">
         <Link to={ROUTES.HOME} className="nav__logo">
-          <img src="/logo-green.png" alt="ParisTours" />
+          <img src="/leaf-favicon.svg" alt="ParisTours" />
         </Link>
         
         <nav className="nav__menu">
@@ -20,12 +20,12 @@ const Header: React.FC = () => {
           >
             Home
           </Link>
-          <Link 
+          {/* <Link 
             to={ROUTES.BOOK} 
             className={`nav__link ${location.pathname === ROUTES.BOOK ? 'nav__link--active' : ''}`}
           >
             Book Tour
-          </Link>
+          </Link> */}
         </nav>
       </div>
     </header>
