@@ -97,14 +97,11 @@ app.use(compression());
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/bookings', bookingRouter);
 
-// Serve React app in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'frontend/dist')));
-  
-  app.get('*', (req, res) => {
+// Serve React app in production (must be before unhandled routes)
+app.use(express.static(path.join(__dirname, 'frontend/dist')));
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'frontend/dist/index.html'));
-  });
-}
+});
 
 // Unhandled Routes
 app.all('*', (req, res, next) => {
