@@ -1,5 +1,9 @@
 // API Configuration
-export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
+export const API_BASE_URL = import.meta.env.VITE_API_URL || (
+  import.meta.env.PROD 
+    ? '/api/v1' // In production, use relative path (same domain)
+    : 'http://localhost:3000/api/v1' // In development, use localhost
+);
 
 // Stripe Configuration
 export const STRIPE_PUBLISHABLE_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || (() => {

@@ -37,8 +37,32 @@ app.use(
 );
 
 // Implement CORS - Enhanced for React frontend
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5173', 
+  'http://127.0.0.1:3000',
+  'http://127.0.0.1:5173'
+];
+
+// Add production origins from environment variables
+if (process.env.FRONTEND_URL) {
+  allowedOrigins.push(process.env.FRONTEND_URL);
+}
+if (process.env.PRODUCTION_URL) {
+  allowedOrigins.push(process.env.PRODUCTION_URL);
+}
+
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:5173', 'http://127.0.0.1:3000', 'http://127.0.0.1:5173'],
+  origin: process.env.NODE_ENV === 'production' 
+    ? (origin, callback) => {
+        // In production, allow requests with no origin (mobile apps, etc.) or from allowed origins
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      }
+    : allowedOrigins,
   credentials: true,
 }));
 app.options('*', cors()); // Access-Control-Allow-Origin * for all HTTP methods (GET, POST, etc.)
@@ -84,7 +108,7 @@ app.use(
 app.use((req, res, next) => {
   res.setHeader(
     'Content-Security-Policy',
-    "default-src 'self' https://*.mapbox.com http://127.0.0.1:3000 https://js.stripe.com/ ;base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src https://cdnjs.cloudflare.com https://api.mapbox.com https://js.stripe.com/v3/ 'self' blob: ;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;"
+    "default-src 'self' https://*.mapbox.com http://127.0.0.1:3000 https://js.stripe.com/ ;base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src https://cdnjs.cloudflare.com https://api.mapbox.com https://js.stripe.com/ 'self' blob: ;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;"
   );
   next();
 });
