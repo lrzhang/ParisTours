@@ -21,6 +21,8 @@ if (process.env.DATABASE_PASSWORD && DB && DB.includes('<PASSWORD>')) {
   DB = DB.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
 }
 
+console.log(DB);
+
 mongoose
   .connect(DB)
   .then(() => {

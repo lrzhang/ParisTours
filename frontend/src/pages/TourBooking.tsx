@@ -167,13 +167,7 @@ const TourBooking: React.FC = () => {
             
             <div className="tour-details__info">
               <div className="tour-details__info-item">
-                <strong>Difficulty:</strong> {tour.difficulty}
-              </div>
-              <div className="tour-details__info-item">
                 <strong>Starting Point:</strong> {tour.startLocation.description}
-              </div>
-              <div className="tour-details__info-item">
-                <strong>Stops:</strong> {tour.locations.length} locations
               </div>
             </div>
 
@@ -186,6 +180,47 @@ const TourBooking: React.FC = () => {
                     <img src={`/img/tours/${image}`} alt={`${tour.name} - Image ${index + 1}`} />
                   </div>
                 ))}
+              </div>
+            </div>
+
+            {/* FAQ Section */}
+            <div className="faq-section">
+              <h3>Frequently Asked Questions</h3>
+              <div className="faq-list">
+                <div className="faq-item">
+                  <h4 className="faq-question">Is cannabis legal in France?</h4>
+                  <p className="faq-answer">
+                    In France, the sale and consumption of THC is legal as long as the product contains less than 0.3% Delta-9 THC. These products are generally 5 or 12.5 grams in size, and can reach THC concentrations of 10 and 25 mg respectively, a dose of THC equivalent to that found in 0.3g of cannabis flowers with 20% THC. As a result, manufacturers can offer products containing a relatively high dose of Delta-9 THC, while complying with French and European regulations.
+                  </p>
+                </div>
+
+                <div className="faq-item">
+                  <h4 className="faq-question">How much THC is in the gummies on Paris THC tours?</h4>
+                  <p className="faq-answer">
+                    Each participant is provided with a resealable bag of 5 edibles, 10 mgs each. This allows you to choose how much you'd like to take during the tour and save the rest for later. You can purchase more during the tour at the cannabis boutique if you'd like.
+                  </p>
+                </div>
+
+                <div className="faq-item">
+                  <h4 className="faq-question">Are the tours in English?</h4>
+                  <p className="faq-answer">
+                    Yes, all of our tour guides are native-English speakers!
+                  </p>
+                </div>
+
+                <div className="faq-item">
+                  <h4 className="faq-question">What should I bring?</h4>
+                  <p className="faq-answer">
+                    Comfortable walking shoes, a valid ID, and an open mind! It's also a good idea to bring along a bottle of water, but you'll also have a chance to purchase water and snacks on the tour if you forget.
+                  </p>
+                </div>
+
+                <div className="faq-item">
+                  <h4 className="faq-question">What's your cancellation policy?</h4>
+                  <p className="faq-answer">
+                    Full refunds available for cancellations made 48 hours in advance. Contact us for more details about our flexible booking policy.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

@@ -6,21 +6,31 @@
       "coordinates": [48.8674, 2.3636],
       "address": "Place de la République, 75011 Paris, France"
     },
-    "ratingsAverage": 5,
+    "ratingsAverage": 4.8,
     "ratingsQuantity": 5,
     "images": ["tour-4-1.jpg", "tour-4-2.jpg", "tour-4-3.jpg"],
     "startDates": [
-      "2025-06-08T10:00:00.000Z"
+      "2025-06-08T16:00:00.000Z"
     ],
     "_id": "5c88fa8cf4afda39709c295d",
     "name": "High in the City of Love",
-    "duration": 3,
+    "duration": 2.5,
     "maxGroupSize": 10,
     "difficulty": "medium",
     "guides": ["5c8a22c62f8fb814b56fa18b", "5c8a201e2f8fb814b56fa186"],
     "price": 30,
+    "timeSlots": [
+      {
+        "time": "16:00",
+        "maxCapacity": 10
+      },
+      {
+        "time": "19:00",
+        "maxCapacity": 10
+      }
+    ],
     "summary": "Our premier walking tour of Paris's 420-friendly scene",
-    "description": "Welcome to Paris THC Tours—where history, art, and a cannabis-friendly spirit come together for an unforgettable 3-hour journey through the heart of Paris. Our motto is simple: explore the city, enjoy responsibly, and learn from local experts. We're passionate about Paris's cafés, cafés-crèmes, and cobblestone streets—plus the unique subculture that embraces cannabis tourism in a safe, discreet, and entirely legal way.\nOur founders, Lee and Charlie, are seasoned Paris residents who share a deep love for both the city's renowned landmarks and its emerging 420-friendly scene. We do not sell cannabis directly; instead, we offer carefully curated stop-offs at trusted local boutiques, private lounges, or CBD shops, along with expert guidance on how to stay within France's legal guidelines.",
+    "description": "Welcome to Paris THC Tours! We take you on a 2.5 hour walking tour through the most beautiful city in the world…on THC edibles. Our tour starts at Place de la Republique with a short stroll to our favorite cannabis boutique, where we will supply each tour participant with 50 milligrams of THC edibles. From there, we embark on a journey through the City of Light, with stops at historic locations such as Notre Dame cathedral, the Louvre, Tuileries Gardens, Place de la Concorde, as well as some favorite local hangout spots such as Canal Saint-Martin and Les Halles. This English tour provides you an opportunity to take in the beauty of Paris with a guide who knows all the best spots to enjoy your high. If you’re tired of the same old walking tour and looking for a unique way to experience this historic city alongside like-minded people, this is the tour for you!",
     "imageCover": "tour-4-cover.jpg",
     "locations": [
       {

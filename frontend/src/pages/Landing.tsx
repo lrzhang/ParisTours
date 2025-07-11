@@ -79,8 +79,7 @@ const Landing: React.FC = () => {
                 <ul className="tour-overview__list">
                   <li>Expert local guide</li>
                   <li>Small group experience</li>
-                  <li>All entrance fees</li>
-                  <li>Professional photos</li>
+                  <li>Photo opportunities (our guide will help you take photos)</li>
                   <li>Local insights and stories</li>
                 </ul>
               </div>
@@ -138,9 +137,9 @@ const Landing: React.FC = () => {
           <div className="features__grid">
             <div className="feature-card">
               <div className="feature-card__icon">🎯</div>
-              <h3 className="feature-card__title">Expert Guides</h3>
+              <h3 className="feature-card__title">Expert Guide</h3>
               <p className="feature-card__description">
-                Our passionate local guides bring Paris to life with insider knowledge and fascinating stories.
+                Our passionate local guide bring Paris to life with insider knowledge and fascinating stories.
               </p>
             </div>
             

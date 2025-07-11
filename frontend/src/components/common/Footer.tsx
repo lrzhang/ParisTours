@@ -31,17 +31,16 @@ const Footer: React.FC = () => {
           </div>
         </div>
         
-        <div className="footer__section">
+        {/* <div className="footer__section">
           <h4 className="footer__heading">Tour Information</h4>
           <ul className="footer__list">
-            <li className="footer__list-item">Duration: 3-4 hours</li>
-            <li className="footer__list-item">Group size: Up to 15 people</li>
-            <li className="footer__list-item">Languages: English, French</li>
-            <li className="footer__list-item">Difficulty: Easy</li>
+            <li className="footer__list-item">Duration: 2.5 hours</li>
+            <li className="footer__list-item">Group size: Up to 10 people</li>
+            <li className="footer__list-item">Languages: English</li>
           </ul>
         </div>
+       */}
       </div>
-      
       <div className="footer__bottom">
         <p className="footer__copyright">
           &copy; {new Date().getFullYear()} ParisTours. All rights reserved.

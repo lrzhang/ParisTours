@@ -116,7 +116,7 @@ const tourSchema = new mongoose.Schema(
     // Default to one slot per day initially
     defaultTimeSlots: {
       type: [String],
-      default: ["10:00"] // Start with single morning slot
+      default: ["16:00"] // Start with single morning slot
     },
   },
   {
