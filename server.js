@@ -16,8 +16,8 @@ dotenv.config({ path: './config.env' }); // MUST BE BEFORE requiring app file
 const app = require('./app');
 
 // Handle both local MongoDB and MongoDB Atlas connections
-let DB = process.env.DATABASE;
-if (process.env.DATABASE_PASSWORD) {
+let DB = process.env.DATABASE_URL || process.env.DATABASE;
+if (process.env.DATABASE_PASSWORD && DB && DB.includes('<PASSWORD>')) {
   DB = DB.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
 }
 
