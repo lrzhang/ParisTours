@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
 import { useTourById, useTourAvailability, useTimeSlots } from '../hooks/useTour';
 import { useBookingFlow } from '../hooks/useBooking';
-import { ROUTES } from '../utils/constants';
-import { formatPrice, formatPriceBreakdown } from '../utils/priceUtils';
-import { formatDate, formatDisplayDate, formatTime, getMinBookingDate, getMaxBookingDate } from '../utils/dateUtils';
+// import { ROUTES } from '../utils/constants';
+import { formatPriceBreakdown } from '../utils/priceUtils';
+import { formatDate, formatTime, getMinBookingDate, getMaxBookingDate } from '../utils/dateUtils';
 import { ERROR_MESSAGES } from '../utils/constants';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import ErrorMessage from '../components/common/ErrorMessage';
@@ -17,7 +17,6 @@ import './TourBooking.css';
 
 const TourBooking: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string>('');
   const [numberOfGuests, setNumberOfGuests] = useState(1);
@@ -25,8 +24,8 @@ const TourBooking: React.FC = () => {
   const [timeSlots, setTimeSlots] = useState<Array<{ time: string; maxCapacity: number }>>([]);
 
   const { data: tour, loading: tourLoading, error: tourError, execute: fetchTour } = useTourById();
-  const { data: availabilityData, loading: availabilityLoading, execute: fetchAvailability } = useTourAvailability();
-  const { data: timeSlotsData, loading: timeSlotsLoading, execute: fetchTimeSlots } = useTimeSlots();
+  const { data: availabilityData, execute: fetchAvailability } = useTourAvailability();
+  const { data: timeSlotsData, execute: fetchTimeSlots } = useTimeSlots();
   const { startBookingFlow, loading: bookingLoading, error: bookingError } = useBookingFlow();
 
   const {
@@ -93,10 +92,6 @@ const TourBooking: React.FC = () => {
   };
 
   // Calculate total price
-  const calculateTotalPrice = () => {
-    if (!tour) return 0;
-    return tour.price * numberOfGuests;
-  };
 
   // Handle form submission
   const onSubmit = async (data: BookingFormData) => {

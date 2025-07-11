@@ -39,7 +39,7 @@ const initialState = {
 
 export const useTourStore = create<TourState>()(
   devtools(
-    (set, get) => ({
+    (set) => ({
       ...initialState,
       
       setTours: (tours) => set({ tours }),

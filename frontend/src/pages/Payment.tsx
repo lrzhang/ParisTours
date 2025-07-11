@@ -4,7 +4,6 @@ import { useBookingFlow } from '../hooks/useBooking';
 import { ROUTES } from '../utils/constants';
 import { formatPrice } from '../utils/priceUtils';
 import { formatDisplayDate } from '../utils/dateUtils';
-import LoadingSpinner from '../components/common/LoadingSpinner';
 import ErrorMessage from '../components/common/ErrorMessage';
 import type { Booking } from '../types/booking';
 import './Payment.css';
@@ -12,7 +11,7 @@ import './Payment.css';
 const PaymentSuccess: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { verifyPayment, loading, error } = useBookingFlow();
+  const { verifyPayment, error } = useBookingFlow();
   const [booking, setBooking] = useState<Booking | null>(null);
   const [processed, setProcessed] = useState(false);
 

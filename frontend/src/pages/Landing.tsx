@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useFeaturedTour } from '../hooks/useTour';
-import { ROUTES } from '../utils/constants';
 import { formatPrice } from '../utils/priceUtils';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import ErrorMessage from '../components/common/ErrorMessage';

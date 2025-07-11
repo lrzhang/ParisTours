@@ -1,4 +1,4 @@
-import { BOOKING_ADVANCE_DAYS } from './constants';
+//import { BOOKING_ADVANCE_DAYS } from './constants';
 
 export const formatDate = (date: Date | string): string => {
   const dateObj = typeof date === 'string' ? new Date(date) : date;
